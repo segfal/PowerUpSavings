@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import './ChatBot.css';
 
 interface Message {
@@ -100,67 +101,173 @@ const ChatBot = ({ transactions }: ChatBotProps) => {
     }, 1000);
   };
 
+  const chatVariants = {
+    hidden: { opacity: 0, y: 100, scale: 0.8 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      scale: 1,
+      transition: {
+        type: "spring",
+        damping: 25,
+        stiffness: 300
+      }
+    },
+    exit: { 
+      opacity: 0, 
+      y: 100, 
+      scale: 0.8,
+      transition: {
+        duration: 0.2
+      }
+    }
+  };
+
+  const messageVariants = {
+    hidden: { opacity: 0, x: 20, scale: 0.8 },
+    visible: { 
+      opacity: 1, 
+      x: 0, 
+      scale: 1,
+      transition: {
+        type: "spring",
+        damping: 25,
+        stiffness: 300
+      }
+    }
+  };
+
+  const buttonVariants = {
+    rest: { scale: 1 },
+    hover: { scale: 1.1 },
+    tap: { scale: 0.95 }
+  };
+
   return (
     <div className="chatbot-container">
-      {!isOpen && (
-        <button 
-          className="chat-toggle"
-          onClick={() => setIsOpen(true)}
-        >
-          <i className="icon-chat"></i>
-          Chat Advisor
-        </button>
-      )}
-      
-      {isOpen && (
-        <div className="chat-window">
-          <div className="chat-header">
-            <h3>Financial Advisor</h3>
-            <button 
-              className="close-button"
-              onClick={() => setIsOpen(false)}
-            >
-              ×
-            </button>
-          </div>
-          
-          <div className="messages-container">
-            {messages.length === 0 && (
-              <div className="welcome-message">
-                <p>👋 Hi! I'm your AI financial advisor. I can help you make better spending decisions based on your transaction history.</p>
-                <p>Try asking about:</p>
-                <ul>
-                  <li>Food spending habits</li>
-                  <li>Shopping patterns</li>
-                  <li>Ways to save money</li>
-                </ul>
-              </div>
-            )}
-            
-            {messages.map(message => (
-              <div 
-                key={message.id} 
-                className={`message ${message.sender === 'user' ? 'user-message' : 'bot-message'}`}
-              >
-                {message.text}
-              </div>
-            ))}
-            <div ref={messagesEndRef} />
-          </div>
-          
-          <form onSubmit={handleSubmit} className="chat-input">
-            <input
-              type="text"
-              value={inputText}
-              onChange={(e) => setInputText(e.target.value)}
-              placeholder="Ask for financial advice..."
+      <AnimatePresence>
+        {!isOpen && (
+          <motion.button 
+            className="chat-toggle"
+            onClick={() => setIsOpen(true)}
+            initial="rest"
+            whileHover="hover"
+            whileTap="tap"
+            variants={buttonVariants}
+            exit={{ opacity: 0, y: 100 }}
+          >
+            <motion.i 
+              className="icon-chat"
+              animate={{ rotate: [0, -10, 10, -10, 10, 0] }}
+              transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
             />
-            <button type="submit">
-              <i className="icon-send"></i>
-            </button>
-          </form>
-        </div>
-      )}
+            Chat Advisor
+          </motion.button>
+        )}
+
+        {isOpen && (
+          <motion.div 
+            className="chat-window"
+            variants={chatVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <motion.div 
+              className="chat-header"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+            >
+              <h3>Financial Advisor</h3>
+              <motion.button 
+                className="close-button"
+                onClick={() => setIsOpen(false)}
+                whileHover={{ scale: 1.2, rotate: 90 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                ×
+              </motion.button>
+            </motion.div>
+            
+            <div className="messages-container">
+              <AnimatePresence>
+                {messages.length === 0 && (
+                  <motion.div 
+                    className="welcome-message"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                  >
+                    <p>👋 Hi! I'm your AI financial advisor. I can help you make better spending decisions based on your transaction history.</p>
+                    <p>Try asking about:</p>
+                    <motion.ul
+                      initial="hidden"
+                      animate="visible"
+                      variants={{
+                        visible: {
+                          transition: {
+                            staggerChildren: 0.1
+                          }
+                        }
+                      }}
+                    >
+                      {['Food spending habits', 'Shopping patterns', 'Ways to save money'].map((item, index) => (
+                        <motion.li
+                          key={index}
+                          variants={{
+                            hidden: { opacity: 0, x: -20 },
+                            visible: { opacity: 1, x: 0 }
+                          }}
+                        >
+                          {item}
+                        </motion.li>
+                      ))}
+                    </motion.ul>
+                  </motion.div>
+                )}
+                
+                {messages.map(message => (
+                  <motion.div 
+                    key={message.id} 
+                    className={`message ${message.sender === 'user' ? 'user-message' : 'bot-message'}`}
+                    variants={messageVariants}
+                    initial="hidden"
+                    animate="visible"
+                    layout
+                  >
+                    {message.text}
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+              <div ref={messagesEndRef} />
+            </div>
+            
+            <motion.form 
+              onSubmit={handleSubmit} 
+              className="chat-input"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+            >
+              <motion.input
+                type="text"
+                value={inputText}
+                onChange={(e) => setInputText(e.target.value)}
+                placeholder="Ask for financial advice..."
+                whileFocus={{ scale: 1.02 }}
+              />
+              <motion.button 
+                type="submit"
+                whileHover={{ scale: 1.1, backgroundColor: "var(--success-green)" }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <i className="icon-send" />
+              </motion.button>
+            </motion.form>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
