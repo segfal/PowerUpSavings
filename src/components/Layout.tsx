@@ -26,7 +26,7 @@ const Layout = () => {
             <li className="nav-item">
               <Link to="/quiz">
                 <i className="icon-estimates"></i>
-                2024 Estimates
+                Shopping Quiz
               </Link>
             </li>
             <li className="nav-item">
