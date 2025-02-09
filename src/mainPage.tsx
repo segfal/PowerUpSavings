@@ -8,6 +8,7 @@ import tshirt from './assets/tshirt.png'
 import dunkin from './assets/dunkin.png'
 import ChatBot from './components/ChatBot'
 import './App.css'
+import { head } from 'framer-motion/client'
 
 interface Transaction {
   id: string;
