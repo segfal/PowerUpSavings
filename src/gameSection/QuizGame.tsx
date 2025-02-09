@@ -47,7 +47,7 @@ const QuizGame: React.FC = () => {
             <div className="pixel-envelopes bottom-envelope"></div>
           </div>
           <div className="game-content">
-            <h1 className="retro-title">Don't Waste Money!</h1>
+            <h1 className="retro-title" style={{ backgroundColor: '#F1FAF7' }}>Don't Waste Money!</h1>
             <div className="retro-card">
               <div className="card-content">
                 <h2>A Game About Smart Spending</h2>
