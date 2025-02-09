@@ -8,7 +8,7 @@
 
 .spending-game-container {
   min-height: calc(100vh - 4rem);
-  background: linear-gradient(135deg, var(--light-mint) 0%, #ffffff 100%);
+  background: #e6f3ff;
   position: relative;
   display: flex;
   align-items: center;
@@ -17,7 +17,10 @@
   font-family: 'Press Start 2P', system-ui, -apple-system, sans-serif;
   padding: 2rem;
   border-radius: 12px;
-  margin: 1rem;
+  margin: 1rem auto;
+  margin-left: calc(240px + 8rem);
+  width: calc(100% - 400px);
+  max-width: 1400px;
 }
 
 .game-content {
