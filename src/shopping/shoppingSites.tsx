@@ -37,7 +37,7 @@ const shoppingSites: ShoppingSite[] = [
     logo: 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg',
     description: 'Shop electronics, clothing, and more. Earn 1 point for every item purchased!',
     url: 'https://amazon.com',
-    currentStreak: 3,
+    currentStreak: 6,
     nextReward: 'Free Prime Delivery for a Month',
     pointsToNextReward: 50,
     purchaseHistory: [
@@ -54,28 +54,37 @@ const shoppingSites: ShoppingSite[] = [
         quantity: 1
       }
     ],
-    recommendations: [
-      {
-        itemName: 'Sony WH-1000XM5 Headphones',
-        price: 399.99,
-        cashbackPercentage: 5,
-        reason: 'Based on your purchase history of premium headphones'
-      },
-      {
-        itemName: 'Kindle Unlimited Subscription',
-        price: 9.99,
-        cashbackPercentage: 10,
-        reason: 'Perfect companion for your Kindle Paperwhite'
-      }
-    ]
   },
   {
     id: '2',
-    name: 'McDonald\'s',
-    category: 'Fast Food',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/3/36/McDonald%27s_Golden_Arches.svg',
-    description: 'Perfect for quick meals. Earn 1 point for every item in your order!',
-    url: 'https://mcdonalds.com'
+    name: 'Best Buy',
+    category: 'Electronics',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/f/f5/Best_Buy_Logo.svg',
+    description: 'Shop electronics and earn points on every gadget!',
+    url: 'https://bestbuy.com',
+    currentStreak: 4,
+    purchaseHistory: [
+      {
+        itemName: 'Samsung 65" QLED TV',
+        price: 999.99,
+        date: '2024-01-15',
+        quantity: 1
+      },
+      {
+        itemName: 'PlayStation 5',
+        price: 499.99,
+        date: '2024-02-01',
+        quantity: 1
+      }
+    ],
+    recommendations: [
+      {
+        itemName: 'PS5 Games Bundle',
+        price: 159.99,
+        cashbackPercentage: 8,
+        reason: 'Perfect for your new PlayStation 5'
+      },
+    ]
   },
   {
     id: '3',
@@ -84,6 +93,7 @@ const shoppingSites: ShoppingSite[] = [
     logo: 'https://logo.com/image-cdn/images/kts928pd/production/a21c8a29a28c8998ca840a00064142e93f085f6f-700x394.png?w=1920&q=72&fm=webp',
     description: 'Start your day right with coffee and donuts. 1 point per item!',
     url: 'https://dunkindonuts.com',
+    currentStreak: 3,
     purchaseHistory: [
       {
         itemName: 'Medium Iced Coffee',
@@ -132,40 +142,12 @@ const shoppingSites: ShoppingSite[] = [
     url: 'https://starbucks.com'
   },
   {
-    id: '7',
-    name: 'Best Buy',
-    category: 'Electronics',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/f/f5/Best_Buy_Logo.svg',
-    description: 'Shop electronics and earn points on every gadget!',
-    url: 'https://bestbuy.com',
-    purchaseHistory: [
-      {
-        itemName: 'Samsung 65" QLED TV',
-        price: 999.99,
-        date: '2024-01-15',
-        quantity: 1
-      },
-      {
-        itemName: 'PlayStation 5',
-        price: 499.99,
-        date: '2024-02-01',
-        quantity: 1
-      }
-    ],
-    recommendations: [
-      {
-        itemName: 'PS5 Games Bundle',
-        price: 159.99,
-        cashbackPercentage: 8,
-        reason: 'Perfect for your new PlayStation 5'
-      },
-      {
-        itemName: 'Soundbar System',
-        price: 299.99,
-        cashbackPercentage: 5,
-        reason: 'Enhance your TV viewing experience'
-      }
-    ]
+    id: '2',
+    name: 'McDonald\'s',
+    category: 'Fast Food',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/3/36/McDonald%27s_Golden_Arches.svg',
+    description: 'Perfect for quick meals. Earn 1 point for every item in your order!',
+    url: 'https://mcdonalds.com'
   },
   {
     id: '8',

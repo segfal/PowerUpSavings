@@ -89,6 +89,7 @@ const MainPage: React.FC = () => {
       initial="hidden"
       animate="visible"
       variants={containerVariants}
+      style={{ marginLeft: '240px', padding: '2rem' }}
     >
       <motion.header className="dashboard-header" variants={itemVariants}>
         <div className="dashboard-title">

@@ -2,8 +2,8 @@
   padding: 2rem;
   max-width: 1400px;
   margin: 0 auto;
-  margin-left: 150px;
-
+  margin-left: 240px;
+  width: calc(100% - 240px);
 }
 
 .rewards-header {
