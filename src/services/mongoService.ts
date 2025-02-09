@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const API_KEY = process.env.REACT_APP_MONGODB_DATA_API_KEY;
-const DATA_API_URL = process.env.REACT_APP_MONGODB_DATA_API_URL;
+const API_KEY = import.meta.env.VITE_MONGODB_DATA_API_KEY;
+const DATA_API_URL = import.meta.env.VITE_MONGODB_DATA_API_URL;
 const DATABASE = 'mongodata';
 const COLLECTION = 'transactions';
 

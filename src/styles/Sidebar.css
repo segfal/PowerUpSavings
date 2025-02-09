@@ -2,11 +2,11 @@
   position: fixed;
   left: 0;
   top: 0;
-  width: 280px;
+  width: 240px;
   height: 100vh;
   background: linear-gradient(135deg, #003B5C 0%, #002339 100%);
   color: white;
-  padding: 2rem;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease;
@@ -199,16 +199,16 @@
 
 /* Main content adjustment */
 .main-content {
-  margin-left: 280px;
-  padding: 2rem;
   background: #f5f5f5;
   min-height: 100vh;
+  width: calc(100% - 240px);
 }
 
 /* Ensure proper stacking context */
 .app-container {
   position: relative;
   isolation: isolate;
+  width: 100%;
 }
 
 /* Hide scrollbar but allow scrolling */
@@ -233,7 +233,7 @@
 /* Ensure the main content doesn't overlap */
 @media screen and (min-width: 768px) {
   .main-content {
-    margin-left: 280px;
+    width: calc(100% - 240px);
   }
 }
 
@@ -247,6 +247,6 @@
   }
   
   .main-content {
-    margin-left: 0;
+    width: 100%;
   }
 } 

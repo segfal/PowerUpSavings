@@ -1,6 +1,20 @@
 import { motion } from 'framer-motion';
 import './shoppingSites.css';
 
+interface PurchaseHistory {
+  itemName: string;
+  price: number;
+  date: string;
+  quantity: number;
+}
+
+interface Recommendation {
+  itemName: string;
+  price: number;
+  cashbackPercentage: number;
+  reason: string;
+}
+
 interface ShoppingSite {
   id: string;
   name: string;
@@ -8,6 +22,11 @@ interface ShoppingSite {
   logo: string;
   description: string;
   url: string;
+  currentStreak?: number;
+  nextReward?: string;
+  pointsToNextReward?: number;
+  purchaseHistory?: PurchaseHistory[];
+  recommendations?: Recommendation[];
 }
 
 const shoppingSites: ShoppingSite[] = [
@@ -17,7 +36,38 @@ const shoppingSites: ShoppingSite[] = [
     category: 'Online Shopping',
     logo: 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg',
     description: 'Shop electronics, clothing, and more. Earn 1 point for every item purchased!',
-    url: 'https://amazon.com'
+    url: 'https://amazon.com',
+    currentStreak: 3,
+    nextReward: 'Free Prime Delivery for a Month',
+    pointsToNextReward: 50,
+    purchaseHistory: [
+      {
+        itemName: 'Sony WH-1000XM4 Headphones',
+        price: 349.99,
+        date: '2024-03-15',
+        quantity: 1
+      },
+      {
+        itemName: 'Kindle Paperwhite',
+        price: 139.99,
+        date: '2024-02-28',
+        quantity: 1
+      }
+    ],
+    recommendations: [
+      {
+        itemName: 'Sony WH-1000XM5 Headphones',
+        price: 399.99,
+        cashbackPercentage: 5,
+        reason: 'Based on your purchase history of premium headphones'
+      },
+      {
+        itemName: 'Kindle Unlimited Subscription',
+        price: 9.99,
+        cashbackPercentage: 10,
+        reason: 'Perfect companion for your Kindle Paperwhite'
+      }
+    ]
   },
   {
     id: '2',
@@ -33,7 +83,29 @@ const shoppingSites: ShoppingSite[] = [
     category: 'Coffee & Snacks',
     logo: 'https://logo.com/image-cdn/images/kts928pd/production/a21c8a29a28c8998ca840a00064142e93f085f6f-700x394.png?w=1920&q=72&fm=webp',
     description: 'Start your day right with coffee and donuts. 1 point per item!',
-    url: 'https://dunkindonuts.com'
+    url: 'https://dunkindonuts.com',
+    purchaseHistory: [
+      {
+        itemName: 'Medium Iced Coffee',
+        price: 3.99,
+        date: '2024-03-20',
+        quantity: 1
+      },
+      {
+        itemName: 'Dozen Donuts',
+        price: 12.99,
+        date: '2024-03-18',
+        quantity: 1
+      }
+    ],
+    recommendations: [
+      {
+        itemName: 'Coffee Subscription',
+        price: 19.99,
+        cashbackPercentage: 15,
+        reason: 'You buy coffee 3 times a week - save more with a subscription!'
+      }
+    ]
   },
   {
     id: '4',
@@ -65,7 +137,35 @@ const shoppingSites: ShoppingSite[] = [
     category: 'Electronics',
     logo: 'https://upload.wikimedia.org/wikipedia/commons/f/f5/Best_Buy_Logo.svg',
     description: 'Shop electronics and earn points on every gadget!',
-    url: 'https://bestbuy.com'
+    url: 'https://bestbuy.com',
+    purchaseHistory: [
+      {
+        itemName: 'Samsung 65" QLED TV',
+        price: 999.99,
+        date: '2024-01-15',
+        quantity: 1
+      },
+      {
+        itemName: 'PlayStation 5',
+        price: 499.99,
+        date: '2024-02-01',
+        quantity: 1
+      }
+    ],
+    recommendations: [
+      {
+        itemName: 'PS5 Games Bundle',
+        price: 159.99,
+        cashbackPercentage: 8,
+        reason: 'Perfect for your new PlayStation 5'
+      },
+      {
+        itemName: 'Soundbar System',
+        price: 299.99,
+        cashbackPercentage: 5,
+        reason: 'Enhance your TV viewing experience'
+      }
+    ]
   },
   {
     id: '8',
@@ -163,19 +263,25 @@ const ShoppingSites = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
+        staggerChildren: 0.2
       }
     }
   };
 
   const cardVariants = {
-    hidden: { y: 20, opacity: 0 },
+    hidden: { 
+      y: 50,
+      opacity: 0,
+      scale: 0.8
+    },
     visible: {
       y: 0,
       opacity: 1,
+      scale: 1,
       transition: {
         type: "spring",
-        stiffness: 100
+        stiffness: 100,
+        damping: 12
       }
     }
   };
@@ -183,10 +289,42 @@ const ShoppingSites = () => {
   const buttonVariants = {
     rest: { scale: 1 },
     hover: { 
-      scale: 1.05,
-      backgroundColor: "var(--success-green)",
+      scale: 1.1,
+      boxShadow: "0 0 30px rgba(0, 255, 0, 0.5)"
     },
     tap: { scale: 0.95 }
+  };
+
+  const streakVariants = {
+    initial: { scale: 0, rotate: -180 },
+    animate: { 
+      scale: 1, 
+      rotate: 0,
+      transition: {
+        type: "spring",
+        stiffness: 200,
+        damping: 10
+      }
+    }
+  };
+
+  const pointsVariants = {
+    initial: { scale: 0 },
+    animate: { 
+      scale: [1.2, 1],
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const progressVariants = {
+    initial: { width: "0%" },
+    animate: (width: number) => ({
+      width: `${width}%`,
+      transition: { duration: 1, ease: "easeOut" }
+    })
   };
 
   const handleStoreClick = (url: string) => {
@@ -201,11 +339,35 @@ const ShoppingSites = () => {
       variants={containerVariants}
     >
       <motion.header className="shopping-header" variants={cardVariants}>
-        <h1>Featured Stores</h1>
-        <p>Shop at your favorite stores and earn 1 point for every item purchased!</p>
+        <motion.h1
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 100 }}
+        >
+          🎮 Power Up Your Shopping! 🎮
+        </motion.h1>
+        <div className="header-content">
+          <motion.div 
+            className="total-points"
+            variants={pointsVariants}
+            initial="initial"
+            animate="animate"
+            whileHover={{ scale: 1.05 }}
+          >
+            <span className="points-value">1,250</span>
+            <span className="points-label">Total Points</span>
+          </motion.div>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+          >
+            Level up your savings at these amazing stores! Each purchase brings you closer to epic rewards! 🏆
+          </motion.p>
+        </div>
       </motion.header>
 
-      <motion.div className="stores-grid" style={{ marginLeft: '100px' }}fo>
+      <motion.div className="stores-grid" style={{ marginLeft: '100px' }}>
         {shoppingSites.map((site) => (
           <motion.div
             key={site.id}
@@ -213,16 +375,124 @@ const ShoppingSites = () => {
             variants={cardVariants}
             whileHover={{ 
               scale: 1.02,
-              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.12)"
+              transition: { duration: 0.2 }
             }}
           >
             <div className="store-logo">
-              <img src={site.logo} alt={`${site.name} logo`} />
+              <motion.img 
+                src={site.logo} 
+                alt={`${site.name} logo`}
+                whileHover={{ scale: 1.1 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              />
+              {site.currentStreak && (
+                <motion.div 
+                  className="streak-badge"
+                  variants={streakVariants}
+                  initial="initial"
+                  animate="animate"
+                >
+                  🔥 {site.currentStreak} Day Streak!
+                </motion.div>
+              )}
             </div>
             <div className="store-info">
-              <h3>{site.name}</h3>
-              <span className="category">{site.category}</span>
+              <motion.h3
+                initial={{ x: -20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 0.2 }}
+              >
+                {site.name}
+              </motion.h3>
+              <motion.span 
+                className="category"
+                whileHover={{ scale: 1.05 }}
+              >
+                {site.category}
+              </motion.span>
               <p>{site.description}</p>
+              
+              {site.nextReward && site.pointsToNextReward && (
+                <motion.div 
+                  className="next-reward"
+                  whileHover={{ scale: 1.02 }}
+                >
+                  <h4>🎁 Next Reward Unlock</h4>
+                  <p className="reward-name">{site.nextReward}</p>
+                  <div className="progress-container">
+                    <motion.div 
+                      className="progress-bar"
+                      variants={progressVariants}
+                      initial="initial"
+                      animate="animate"
+                      custom={Math.min(100, (100 - (site.pointsToNextReward / 100) * 100))}
+                    />
+                    <span className="points-remaining">{site.pointsToNextReward} points to go!</span>
+                  </div>
+                </motion.div>
+              )}
+              
+              {site.purchaseHistory && site.purchaseHistory.length > 0 && (
+                <motion.div 
+                  className="purchase-history"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  <h4>⚡ Recent Power-Ups</h4>
+                  {site.purchaseHistory.map((purchase, index) => (
+                    <motion.div 
+                      key={index} 
+                      className="purchase-item"
+                      whileHover={{ x: 10, transition: { duration: 0.2 } }}
+                    >
+                      <span className="item-name">{purchase.itemName}</span>
+                      <div className="purchase-details">
+                        <motion.span 
+                          className="price"
+                          whileHover={{ scale: 1.1 }}
+                        >
+                          +${purchase.price.toFixed(2)} Points!
+                        </motion.span>
+                        <span className="date">{new Date(purchase.date).toLocaleDateString()}</span>
+                      </div>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              )}
+              
+              {site.recommendations && site.recommendations.length > 0 && (
+                <motion.div 
+                  className="recommendations"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <h4>🎯 Epic Deals for You!</h4>
+                  {site.recommendations.map((rec, index) => (
+                    <motion.div 
+                      key={index} 
+                      className="recommendation-item"
+                      whileHover={{ x: 10, transition: { duration: 0.2 } }}
+                    >
+                      <div className="rec-header">
+                        <span className="item-name">{rec.itemName}</span>
+                        <span className="price">${rec.price.toFixed(2)}</span>
+                      </div>
+                      <div className="rec-details">
+                        <motion.span 
+                          className="cashback"
+                          whileHover={{ scale: 1.1 }}
+                        >
+                          💰 {rec.cashbackPercentage}% BONUS cash back!
+                        </motion.span>
+                        <p className="reason">{rec.reason}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              )}
+
               <motion.button
                 className="shop-now-button"
                 onClick={() => handleStoreClick(site.url)}
@@ -231,7 +501,7 @@ const ShoppingSites = () => {
                 whileHover="hover"
                 whileTap="tap"
               >
-                Shop Now
+                ⚡ POWER UP NOW! ⚡
               </motion.button>
             </div>
           </motion.div>

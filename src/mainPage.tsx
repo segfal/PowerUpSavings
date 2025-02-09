@@ -8,7 +8,6 @@ import tshirt from './assets/tshirt.png'
 import dunkin from './assets/dunkin.png'
 import ChatBot from './components/ChatBot'
 import './App.css'
-import { head } from 'framer-motion/client'
 
 interface Transaction {
   id: string;
@@ -33,10 +32,10 @@ interface MostVisited {
   imageUrl: string;
 }
 
-function MainPage() {
-  const [currentBalance, setCurrentBalance] = useState(479.40);
-  const [memberSavings, setMemberSavings] = useState(100.50);
-  const [spending, setSpending] = useState(350.60);
+const MainPage: React.FC = () => {
+  const [currentBalance] = useState(479.40);
+  const [memberSavings] = useState(100.50);
+  const [spending] = useState(350.60);
   
   const [transactions] = useState<Transaction[]>([
     { id: '1', receiver: 'One Fullerton', type: 'Shopping', points: 75, amount: 75.67 },
@@ -48,15 +47,15 @@ function MainPage() {
 
   const [pastTrends] = useState<PastTrend[]>([
     { id: '1', amount: '$554.24', daysAgo: 1, itemName: 'Amazon Headphones', imageUrl: headPhones},
-    { id: '2', amount: '$5.25', daysAgo: 4, itemName: 'McDonalds Fries', imageUrl: fries },
+    { id: '2', amount: '$299.99', daysAgo: 2, itemName: 'Best Buy Gaming Console', imageUrl: fries },
     { id: '3', amount: '$22.67', daysAgo: 16, itemName: 'Amazon T-Shirt', imageUrl: tshirt },
     { id: '4', amount: '$5.24', daysAgo: 24, itemName: 'Dunkin Donuts Coffee', imageUrl: dunkin },
   ]);
 
   const [mostVisited] = useState<MostVisited[]>([
-    { id: '1', category: 'Food and Bevarages', percentage: 74, imageUrl: dunkin},
+    { id: '1', category: 'Electronics', percentage: 74, imageUrl: headPhones },
     { id: '2', category: 'Clothing', percentage: 52, imageUrl: tshirt },
-    { id: '3', category: 'Electronics', percentage: 21, imageUrl: headPhones }
+    { id: '3', category: 'Food and Beverages', percentage: 21, imageUrl: dunkin }
   ]);
 
   // Calculate total points
@@ -192,7 +191,6 @@ function MainPage() {
                 <img src={trend.imageUrl} alt={trend.itemName} />
                 <div className="trend-info">
                   <span className="amount">{trend.amount}</span>
-                  <span className="days-ago">{trend.daysAgo} day{trend.daysAgo > 1 ? 's' : ''} ago</span>
                   <span className="item-name">{trend.itemName}</span>
                 </div>
               </motion.div>

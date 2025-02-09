@@ -17,7 +17,7 @@ const Layout = () => {
   };
 
   const sidebarVariants = {
-    hidden: { x: -280, opacity: 0 },
+    hidden: { x: -240, opacity: 0 },
     visible: {
       x: 0,
       opacity: 1,
@@ -44,16 +44,17 @@ const Layout = () => {
   };
 
   const menuItems = [
-    { path: '/', icon: '📊', label: 'Overview', color: '#4CC9F0' },
-    { path: '/shop', icon: '🛍️', label: 'Shop Now', color: '#F72585' },
-    { path: '/quiz', icon: '❓', label: 'Shopping Quiz', color: '#7209B7' },
-    { path: '/rewards', icon: '🎁', label: 'Rewards', color: '#4361EE' }
+    { path: '/dashboard', icon: '📊', label: 'Overview', color: '#4CC9F0' },
+    { path: '/dashboard/shopping', icon: '🛍️', label: 'Shop Now', color: '#F72585' },
+    { path: '/dashboard/quiz', icon: '❓', label: 'Shopping Quiz', color: '#7209B7' },
+    { path: '/dashboard/spending-game', icon: '💰', label: 'Did You Buy That?', color: '#4361EE' },
+    { path: '/dashboard/rewards', icon: '🎁', label: 'Rewards', color: '#4361EE' }
   ];
 
   if (!mounted) return null;
 
   return (
-    <div className="app-container">
+    <div className="app-container" style={{ display: 'flex', width: '100%', minHeight: '100vh' }}>
       <AnimatePresence>
         <motion.aside 
           className="sidebar"
@@ -61,6 +62,14 @@ const Layout = () => {
           animate="visible"
           variants={sidebarVariants}
           key="sidebar"
+          style={{
+            width: '240px',
+            position: 'fixed',
+            left: 0,
+            top: 0,
+            height: '100vh',
+            padding: '1rem'
+          }}
         >
           <motion.div 
             className="logo-section"
@@ -143,7 +152,12 @@ const Layout = () => {
         </motion.aside>
       </AnimatePresence>
 
-      <main className="main-content">
+      <main style={{ 
+        flex: 1,
+        minHeight: '100vh',
+        background: '#f5f5f5',
+        width: 'calc(100% - 240px)'
+      }}>
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
