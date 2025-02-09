@@ -16,35 +16,28 @@ const Layout = () => {
         </div>
         <nav className="nav-section">
           <ul>
-
             <li className="nav-item">
               <Link to="/">
-                <i className="icon-overview"></i>
+                <i className="nav-icon">📊</i>
                 Overview
               </Link>
             </li>
             <li className="nav-item">
+              <Link to="/shopping">
+                <i className="nav-icon">🛍️</i>
+                Shop Now
+              </Link>
+            </li>
+            <li className="nav-item">
               <Link to="/quiz">
-                <i className="icon-estimates"></i>
+                <i className="nav-icon">🎮</i>
                 Shopping Quiz
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/cards">
-                <i className="icon-cards"></i>
-                Cards
-              </Link>
-            </li>
-            <li className="nav-item">
               <Link to="/rewards">
-                <i className="icon-rewards"></i>
+                <i className="nav-icon">🎁</i>
                 Rewards
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/settings">
-                <i className="icon-settings"></i>
-                Settings
               </Link>
             </li>
           </ul>
