@@ -183,7 +183,7 @@ const LandingPage = () => {
             >
               <div className="feature-icon">💎</div>
               <h3>Gamified Challenges</h3>
-              <p>Complete daily saving missions and watch your wealth grow exponentially.</p>
+              <p style={{ color: 'white' }}>Complete daily saving missions and watch your wealth grow exponentially.</p>
               <div className="feature-highlight">Up to 50% more savings</div>
             </motion.div>
 
@@ -194,7 +194,7 @@ const LandingPage = () => {
             >
               <div className="feature-icon">🎯</div>
               <h3>Smart Goals</h3>
-              <p>Set personalized saving goals with AI-powered recommendations.</p>
+              <p style={{ color: 'white' }}>Set personalized saving goals with AI-powered recommendations.</p>
               <div className="feature-highlight">Achieve goals 3x faster</div>
             </motion.div>
 
@@ -205,7 +205,7 @@ const LandingPage = () => {
             >
               <div className="feature-icon">🏆</div>
               <h3>Real Rewards</h3>
-              <p>Earn points and unlock exclusive rewards as you save more.</p>
+              <p style={{ color: 'white' }}>Earn points and unlock exclusive rewards as you save more.</p>
               <div className="feature-highlight">$100+ in rewards</div>
             </motion.div>
 
@@ -216,7 +216,7 @@ const LandingPage = () => {
             >
               <div className="feature-icon">📱</div>
               <h3>Smart Analytics</h3>
-              <p>Track your progress with beautiful, interactive charts and insights.</p>
+              <p style={{ color: 'white' }}>Track your progress with beautiful, interactive charts and insights.</p>
               <div className="feature-highlight">Real-time tracking</div>
             </motion.div>
           </div>
